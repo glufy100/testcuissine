@@ -1,0 +1,13 @@
+{
+  "provider": "PythonAnywhere Europe",
+  "account": "louis10",
+  "url": "https://louis10.eu.pythonanywhere.com/",
+  "admin_url": "https://louis10.eu.pythonanywhere.com/admin/",
+  "project_path": "/home/louis10/oups-la-cuisine",
+  "virtualenv": "/home/louis10/.virtualenvs/oups",
+  "wsgi_path": "/var/www/louis10_eu_pythonanywhere_com_wsgi.py",
+  "published_on": "2026-10-16",
+  "free_activation_until": "2026-11-16",
+  "https_forced": true,
+  "admin_only_publishing": true
+}
