@@ -1,0 +1,7 @@
+{% load static %}<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Le carnet des ratés en cuisine. Des expériences honnêtes, des recettes imparfaites et des leçons à partager."><title>{% block title %}Oups, la cuisine ! — Le goût du raté{% endblock %}</title><link rel="stylesheet" href="{% static 'blog/style.css' %}"></head>
+<body><header class="site-header"><a class="brand" href="{% url 'home' %}"><span class="brand-icon">◒</span> oups<span class="brand-comma">,</span><small>LA CUISINE !</small></a><nav aria-label="Navigation principale"><a class="nav-blog" href="{% url 'home' %}">Le carnet des ratés</a><a class="nav-about" href="{% url 'home' %}#esprit">L’esprit du blog</a><a class="admin-link" href="{% url 'dashboard' %}">{% if user.is_staff %}Mon atelier{% else %}Espace admin{% endif %} <span>↗</span></a></nav></header>
+{% if messages %}<div class="messages" role="status">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>{% endif %}
+<main>{% block content %}{% endblock %}</main>
+<footer><a class="footer-brand" href="{% url 'home' %}">oups, la cuisine !</a><p>Fait maison. Même quand c’est raté.</p><a href="{% url 'dashboard' %}">Entrée des cuistots ↗</a></footer>
+{% block scripts %}{% endblock %}</body></html>
