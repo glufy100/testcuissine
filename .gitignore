@@ -7,3 +7,6 @@ staticfiles/
 .local-secret
 .env
 .DS_Store
+.idea/
+deployment/*.zip
+deployment/backup-*.sqlite3

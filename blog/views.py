@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
+from .access import admin_required, is_admin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.db import transaction
@@ -24,11 +24,11 @@ def home(request):
     return render(request, 'blog/home.html', {'posts': page, 'featured': featured, 'categories': Post.CATEGORIES, 'category': category, 'query': query, 'total': total})
 
 def detail(request, slug):
-    posts = Post.objects.all() if request.user.is_staff else Post.objects.filter(published=True)
+    posts = Post.objects.all() if is_admin(request.user) else Post.objects.filter(published=True)
     post = get_object_or_404(posts, slug=slug)
     return render(request, 'blog/detail.html', {'post': post, 'related': Post.objects.filter(published=True).exclude(pk=post.pk)[:3]})
 
-@staff_member_required(login_url='login')
+@admin_required
 def dashboard(request):
     posts = Post.objects.all()
     status = request.GET.get('statut', '')
@@ -37,7 +37,7 @@ def dashboard(request):
         posts = posts.filter(published=status == 'publies')
     return render(request, 'blog/dashboard.html', {'posts': posts, 'counts': counts, 'status': status})
 
-@staff_member_required(login_url='login')
+@admin_required
 def edit(request, pk=None):
     post = get_object_or_404(Post, pk=pk) if pk else None
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
@@ -53,7 +53,7 @@ def edit(request, pk=None):
     return render(request, 'blog/editor.html', {'form': form, 'post': post})
 
 @require_POST
-@staff_member_required(login_url='login')
+@admin_required
 def delete(request, pk):
     get_object_or_404(Post, pk=pk).delete()
     messages.success(request, 'Article supprimé.')
